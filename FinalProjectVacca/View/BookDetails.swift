@@ -29,6 +29,10 @@ struct BookDetails: View {
                     .foregroundColor(.white)
                     .position(x:185 ,y: 100)
                 .padding([.top, .leading, .trailing])
+                Text("Book Name")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding(.bottom)
                 
                 VStack {
                     // Book Name

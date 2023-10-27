@@ -62,6 +62,9 @@ struct AddBook: View {
                     .cornerRadius(8)
                     .padding()
                 }
+                Button("Back") {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
                 .navigationBarHidden(true)
                 Spacer()
             }
@@ -79,8 +82,5 @@ struct CustomTextFieldStyle: TextFieldStyle {
     }
 }
 
-struct AddBookView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddBook()
-    }
-}
+
+
