@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6389A0512AEC1E69009709FE /* SerachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6389A0502AEC1E69009709FE /* SerachView.swift */; };
 		638AC7052AE9B4EB0094F0AF /* FinalProjectVaccaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638AC7042AE9B4EB0094F0AF /* FinalProjectVaccaApp.swift */; };
 		638AC7072AE9B4EB0094F0AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638AC7062AE9B4EB0094F0AF /* ContentView.swift */; };
 		638AC7092AE9B4EC0094F0AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638AC7082AE9B4EC0094F0AF /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6389A0502AEC1E69009709FE /* SerachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerachView.swift; sourceTree = "<group>"; };
 		638AC7012AE9B4EB0094F0AF /* FinalProjectVacca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProjectVacca.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638AC7042AE9B4EB0094F0AF /* FinalProjectVaccaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalProjectVaccaApp.swift; sourceTree = "<group>"; };
 		638AC7062AE9B4EB0094F0AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				638AC7412AE9C5DF0094F0AF /* BookStoreViewInitial.swift */,
 				638AC7432AE9C7DB0094F0AF /* AddBookView.swift */,
 				989D1DC22AEB15E000136223 /* BookDetails.swift */,
+				6389A0502AEC1E69009709FE /* SerachView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				638AC7442AE9C7DB0094F0AF /* AddBookView.swift in Sources */,
 				638AC7072AE9B4EB0094F0AF /* ContentView.swift in Sources */,
 				638AC7052AE9B4EB0094F0AF /* FinalProjectVaccaApp.swift in Sources */,
+				6389A0512AEC1E69009709FE /* SerachView.swift in Sources */,
 				638AC73E2AE9C4CE0094F0AF /* Book.swift in Sources */,
 				638AC7402AE9C5150094F0AF /* BookStoreViewModel.swift in Sources */,
 				989D1DC32AEB15E000136223 /* BookDetails.swift in Sources */,

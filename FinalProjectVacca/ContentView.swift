@@ -9,17 +9,20 @@ import SwiftUI
 
 struct BookRow: View {
     var body: some View {
-        HStack {
-            Text("ID").lineLimit(1)
-            Text("Harry").lineLimit(1)
-            Text("Author").lineLimit(1)
-            Text("Price").lineLimit(1)
-            Text("Genre").lineLimit(1)
-        }.padding()
+        NavigationLink(destination: BookDetails()) {
+            HStack {
+                Text("ID").lineLimit(1)
+                Text("Harry").lineLimit(1)
+                Text("Author").lineLimit(1)
+                Text("Price").lineLimit(1)
+                Text("Genre").lineLimit(1)
+            }
+            .padding()
             .background(Color.gray.opacity(0.2))
             .cornerRadius(10)
             .padding(.horizontal)
             .padding(.vertical, 5)
+        }
     }
 }
 

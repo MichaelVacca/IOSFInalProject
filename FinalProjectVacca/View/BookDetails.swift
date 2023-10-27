@@ -2,11 +2,10 @@
 //  BookDetails.swift
 //  FinalProjectVacca
 //
-//  Created by Gabriella Vacca on 2023-10-26.
+//  Created by MACUSER on 2023-10-26.
 //
 
-import SwiftUI
-
+import Foundation
 import SwiftUI
 
 struct BookDetails: View {
@@ -28,8 +27,8 @@ struct BookDetails: View {
                 Text("Update Book")
                     .font(.largeTitle)
                     .foregroundColor(.white)
-                    .position(x: UIScreen.main.bounds.width / 2, y: 10)
-                    .padding([.top, .leading, .trailing])
+                    .position(x:185 ,y: 100)
+                .padding([.top, .leading, .trailing])
                 
                 VStack {
                     // Book Name
@@ -52,12 +51,16 @@ struct BookDetails: View {
                         .textFieldStyle(CustomTextFieldStyle())
                         .padding()
                     
-                    DatePicker("Date Added", selection: $date, displayedComponents: [.date])
-                        .padding(.top, -15)
-                    
-                    TextField("Amount in Inventory", text: $amountInInventory)
-                        .textFieldStyle(CustomTextFieldStyle())
-                        .padding()
+                    Text("Date Added")
+                        .font(.callout)
+                        .foregroundColor(Color.gray)
+                        .padding(.bottom, -5)  // Adjust as needed
+
+                    DatePicker("", selection: $date, displayedComponents: [.date])
+                        .datePickerStyle(DefaultDatePickerStyle())
+                        .padding(.top, -10)
+                        .labelsHidden()
+
                     
                     // Button to Add the Book
                     HStack {
@@ -90,3 +93,4 @@ struct BookDetails: View {
         .navigationBarHidden(true)
     }
 }
+

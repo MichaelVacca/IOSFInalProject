@@ -11,14 +11,12 @@ import SwiftUI
 
 struct BookStoreView: View {
     @ObservedObject var viewModel = BookStoreViewModel()
-    @State private var isAddedviewActive = false
-    @State private var selectedBook: Book?
+    @State private var isAddBookViewActive = false
+    @State private var navigateToSearch = false
     
     var body: some View {
-        ZStack{
-            LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
-            NavigationStack{
+        NavigationView{
+            ZStack{
                 VStack(spacing: 20) {
                     // Header
                     Text("Client Book Store")
@@ -35,18 +33,13 @@ struct BookStoreView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                         
-                        Button("Add") {
-//                            selectedBook = Book(id: 20,name: "New Book", author: "TestAuthor", price: 20.00,genre: "Action")
-//                                        }
-//                                        .background(
-//                                            NavigationLink($selectedBook) { book in
-//                                                AddBook(book: book)
-//                                            }
-//                                        )
-//                            .padding()
-//                            .background(Color.green)
-//                            .foregroundColor(.white)
-//                            .cornerRadius(8)
+                        NavigationLink(destination: AddBook()) {
+                            Text("Add Book")
+                        }
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                     }
                     
                     // List of Books
@@ -58,9 +51,22 @@ struct BookStoreView: View {
                     }
                     .listStyle(PlainListStyle())
                     .background(Color.clear)
+                    Spacer() 
+                    
+                    NavigationLink(destination: SearchView()) {
+                        Text("Find Specific Book") 
+                            
+                        
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .padding(.bottom)
+                    }
                 }
                 .padding()
             }
+            .background(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
         }
     }
 }

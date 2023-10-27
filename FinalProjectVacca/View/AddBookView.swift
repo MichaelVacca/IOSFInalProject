@@ -7,16 +7,6 @@
 
 import Foundation
 import SwiftUI
-struct CustomTextFieldStyle: TextFieldStyle {
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
-            .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.blue, lineWidth: 2) // Adjust color and line width as needed
-            )
-    }
-}
 
 struct AddBook: View {
     @Environment(\.presentationMode) var presentationMode
@@ -24,52 +14,73 @@ struct AddBook: View {
     @State private var author = ""
     @State private var price = ""
     @State private var genre = ""
-    
+    @State private var date = Date()
+    @State private var amountInInventory = ""
+
     var body: some View {
-        NavigationView {
+        ZStack{
+            LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            
             VStack {
-                // Book Name
-                TextField("Book Name", text: $bookName)
-                    .textFieldStyle(CustomTextFieldStyle())
-                    .padding()
+                Text("Add Book")
+                    .font(.largeTitle)   // Making the title larger
+                    .foregroundColor(.white)
+                    .padding([.top, .leading, .trailing])
                 
-                // Author
-                TextField("Author", text: $author)
-                    .textFieldStyle(CustomTextFieldStyle())
+                VStack {
+                    // Book Name
+                    TextField("Book Name", text: $bookName)
+                        .textFieldStyle(CustomTextFieldStyle())
+                        .background(Color.clear)
+                        .padding()
+                    
+                    // Author
+                    TextField("Author", text: $author)
+                        .textFieldStyle(CustomTextFieldStyle())
+                        .padding()
+                    
+                    // Price
+                    TextField("Price", text: $price)
+                        .textFieldStyle(CustomTextFieldStyle())
+                        .padding()
+                    // Genre
+                    TextField("Genre", text: $genre)
+                        .textFieldStyle(CustomTextFieldStyle())
+                        .padding()
+                    
+                    // Button to Add the Book
+                    Button("Add Book") {
+                        // You can handle the logic to add the book here
+                        
+                        // Dismiss the AddBook view and navigate back to the previous view
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                     .padding()
-                
-                // Price
-                TextField("Price", text: $price)
-                    .textFieldStyle(CustomTextFieldStyle())
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
                     .padding()
-                
-                // Genre
-                TextField("Genre", text: $genre)
-                    .textFieldStyle(CustomTextFieldStyle())
-                    .padding()
-                
-                // Button to Add the Book
-                Button("Add Book") {
-                    // Save the book to your database or perform other actions here
-                    // Example:
-                    saveBookToDatabase()
                 }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding()
+                .navigationBarHidden(true)
+                Spacer()
             }
-            .navigationBarTitle("Add Book")
         }
-    }
-    
-    // Function to save the book to the database
-    func saveBookToDatabase() {
-        // Implement your code to save the book to your database here
-        
-        // After saving, dismiss the AddBook view and navigate back to the previous view
-        self.presentationMode.wrappedValue.dismiss()
     }
 }
 
+struct CustomTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .padding(10)
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(color: Color.gray.opacity(0.4), radius: 3, x: 0, y: 2)
+    }
+}
+
+struct AddBookView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddBook()
+    }
+}
