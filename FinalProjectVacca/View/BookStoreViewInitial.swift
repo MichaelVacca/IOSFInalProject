@@ -120,6 +120,21 @@ struct BookStoreView: View {
                     .padding()
                 }
                 .background(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+            }.onAppear {
+                print("hello")
+                
+                let adapter = FirestoreAdapter()
+                
+                var book = Book(id: "abc", name: "ksduhgdsk", author: "sdkjgh", price: 123, genre: "sdg")
+                
+                book.author = "taco"
+                
+                adapter.addDocument(collectionName: "bla", model: book) { result in
+                    print("done")
+
+                }
+                print("hello2")
+
             }
         }
     }

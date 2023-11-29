@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Book: Identifiable{
-    var id: Int
+struct Book: Codable ,Identifiable{
+    var id: String
     var name: String
     var author: String
     var price: Double
