@@ -18,6 +18,8 @@ struct BookDetails: View {
     @State private var amountInInventory = ""
     @State private var date = Date()
     
+    let book: Book
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom)

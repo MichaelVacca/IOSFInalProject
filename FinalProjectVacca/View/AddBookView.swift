@@ -60,6 +60,9 @@ struct AddBook: View {
                 }
                 Button("Back") {
                     self.presentationMode.wrappedValue.dismiss()
+                }.onDisappear {
+                    // Post a notification when the view disappears
+                    NotificationCenter.default.post(name: NSNotification.Name("BookListShouldRefresh"), object: nil)
                 }
                 .navigationBarHidden(true)
                 Spacer()

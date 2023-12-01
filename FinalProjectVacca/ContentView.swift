@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct BookRow: View {
+    var book: Book
+    
     var body: some View {
-        NavigationLink(destination: BookDetails()) {
+        NavigationLink(destination: BookDetails(book: book)) {
             HStack {
-                Text("ID").lineLimit(1)
-                Text("Harry").lineLimit(1)
-                Text("Author").lineLimit(1)
-                Text("Price").lineLimit(1)
-                Text("Genre").lineLimit(1)
+                Text(book.name)
+                    .frame(width: 100, alignment: .leading) // Set a fixed width or use a calculated width
+                    .lineLimit(1)
+                Spacer()
+                Text(book.author)
+                    .frame(width: 100, alignment: .leading)
+                    .lineLimit(1)
+                Spacer()
+                Text(String(format: "%.2f", book.price))
+                    .frame(width: 60, alignment: .trailing) 
+                    .lineLimit(1)
             }
             .padding()
             .background(Color.gray.opacity(0.2))
@@ -24,14 +32,17 @@ struct BookRow: View {
             .padding(.vertical, 5)
         }
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookStoreView()
+    
+    
+    
+    
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            BookStoreView()
+        }
     }
 }
-
 struct BookStoreView_Previews: PreviewProvider {
     static var previews: some View {
         BookStoreView()

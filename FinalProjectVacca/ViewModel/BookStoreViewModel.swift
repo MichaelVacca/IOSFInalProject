@@ -17,12 +17,22 @@ class BookStoreViewModel: ObservableObject {
     
     func fetchData() {
         db.collection("books").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                return
+            }
+
             if let querySnapshot = querySnapshot {
+                for document in querySnapshot.documents {
+                    print("\(document.documentID) => \(document.data())")
+                }
+
                 self.books = querySnapshot.documents.compactMap { document -> Book? in
-                    try? document.data(as: Book.self)
+                    return try? document.data(as: Book.self)
                 }
             }
         }
     }
+
 }
 

@@ -54,12 +54,28 @@ struct BookStoreView: View {
                             .cancel()
                         ])
                     }
-                    
+                    HStack {
+                        Text("Book Name")
+                            .fontWeight(.bold)
+                            .frame(width: 100, alignment: .leading)
+                        Spacer()
+                        
+                        Text("Author")
+                            .fontWeight(.bold)
+                            .frame(width: 100, alignment: .leading)
+                        Text("Price")
+                            .fontWeight(.bold)
+                            .frame(width: 60, alignment: .trailing)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+
                     // List of Books
                     ScrollView {
-                        LazyVStack(spacing:10) {
-                            BookRow()
-                            BookRow()
+                        LazyVStack(spacing: 10) {
+                            ForEach(viewModel.books) { book in
+                                BookRow(book: book)
+                            }
                         }
                     }
                     .listStyle(PlainListStyle())
@@ -121,6 +137,8 @@ struct BookStoreView: View {
                 }
                 .background(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
             }.onAppear {
+                viewModel.fetchData()
+                print("Fetching data in Initial View")
                 print("hello")
                 
                 let adapter = FirestoreAdapter()
@@ -135,7 +153,10 @@ struct BookStoreView: View {
                 }
                 print("hello2")
 
+            }.onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("BookListShouldRefresh"))) { _ in
+                viewModel.fetchData()
             }
+        
         }
     }
 
