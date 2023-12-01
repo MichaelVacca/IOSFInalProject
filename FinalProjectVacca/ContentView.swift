@@ -11,7 +11,7 @@ struct BookRow: View {
     var book: Book
     
     var body: some View {
-        NavigationLink(destination: BookDetails(bookID: book.id)) {
+        NavigationLink(destination: navigateToBookDetails()) {
             HStack {
                 Text(book.name)
                     .frame(width: 100, alignment: .leading) // Set a fixed width or use a calculated width
@@ -42,7 +42,13 @@ struct BookRow: View {
             BookStoreView()
         }
     }
+    private func navigateToBookDetails() -> some View {
+        print("Navigating to details of book with ID: \(book.id)")
+        return BookDetails(bookID: book.id)
+    }
 }
+
+
 struct BookStoreView_Previews: PreviewProvider {
     static var previews: some View {
         BookStoreView()

@@ -52,26 +52,24 @@ class FirestoreAdapter {
     }
     func fetchBookByID(_ id: String, completion: @escaping (Result<Book, Error>) -> Void) {
         let docRef = Firestore.firestore().collection("books").document(id)
-        
-        docRef.getDocument { (documentSnapshot, error) in
+        docRef.getDocument { (document, error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-
-            guard let documentSnapshot = documentSnapshot, documentSnapshot.exists else {
+            guard let document = document, document.exists else {
                 completion(.failure(FirestoreError.noDocument))
                 return
             }
-
             do {
-                let book = try documentSnapshot.data(as: Book.self)
+                let book = try document.data(as: Book.self)
                 completion(.success(book))
             } catch {
                 completion(.failure(error))
             }
         }
     }
+
 
     
     // Create or set a document
