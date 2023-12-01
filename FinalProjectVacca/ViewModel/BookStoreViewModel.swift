@@ -6,32 +6,23 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
 
-class BookStoreViewModel: ObservableObject{
-    @Published var books : [Book] = []
 
-    private var adapter = FirestoreAdapter()
+class BookStoreViewModel: ObservableObject {
+    @Published var books: [Book] = []
 
-    // Fetch all books
-    func fetchBooks() {
-        // Use adapter to fetch books and update `books` array
-    }
-
-    // Add a book
-    func addBook(_ book: Book) {
-        adapter.addDocument(collectionName: "books", model: book) { result in
-            // Handle result (success or failure)
+    private var db = Firestore.firestore()
+    
+    func fetchData() {
+        db.collection("books").getDocuments { (querySnapshot, error) in
+            if let querySnapshot = querySnapshot {
+                self.books = querySnapshot.documents.compactMap { document -> Book? in
+                    try? document.data(as: Book.self)
+                }
+            }
         }
     }
-
-    // Update a book
-    func updateBook(_ book: Book) {
-        // Update book details
-    }
-
-    // Delete a book
-    func deleteBook(withId id: String) {
-        // Delete the book
-    }
-    
 }
+
