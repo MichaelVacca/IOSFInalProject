@@ -16,6 +16,7 @@ struct AddBook: View {
     @State private var genre = ""
     @State private var date = Date()
     @State private var amountInInventory = ""
+    let adapter = FirestoreAdapter()
 
     var body: some View {
         ZStack{
@@ -48,13 +49,8 @@ struct AddBook: View {
                     TextField("Genre", text: $genre)
                         .textFieldStyle(CustomTextFieldStyle())
                         .padding()
-                    
-                    // Button to Add the Book
                     Button("Add Book") {
-                        // You can handle the logic to add the book here
-                        
-                        // Dismiss the AddBook view and navigate back to the previous view
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.addBookToFirebase()
                     }
                     .padding()
                     .background(Color.blue)
@@ -70,7 +66,35 @@ struct AddBook: View {
             }
         }
     }
+    private func addBookToFirebase() {
+        // First, validate the input to ensure it's correct
+        guard let priceNumber = Double(price), !bookName.isEmpty, !author.isEmpty, !genre.isEmpty else {
+            print("Invalid input")
+            // Handle the invalid input with an alert or a message to the user
+            return
+        }
+
+        // Create a new book instance
+        let newBook = Book(id: UUID().uuidString, name: bookName, author: author, price: priceNumber, genre: genre)
+        
+        // Add the new book to Firestore using the FirestoreAdapter
+        adapter.addDocument(collectionName: "books", model: newBook) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let documentReference):
+                    print("Book added successfully with ID: \(documentReference.documentID)")
+                    // Dismiss the AddBook view or show success feedback
+                    self.presentationMode.wrappedValue.dismiss()
+                case .failure(let error):
+                    print("Error adding book: \(error.localizedDescription)")
+                    // Show error feedback to the user
+                }
+            }
+        }
+    }
 }
+
+
 
 struct CustomTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {

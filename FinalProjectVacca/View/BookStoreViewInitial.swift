@@ -125,7 +125,7 @@ struct BookStoreView: View {
                 
                 let adapter = FirestoreAdapter()
                 
-                var book = Book(id: "abc", name: "ksduhgdsk", author: "sdkjgh", price: 123, genre: "sdg")
+                var book = Book(id: "def", name: "helloFirebase?", author: "sdkjgh", price: 123, genre: "sdg")
                 
                 book.author = "taco"
                 
