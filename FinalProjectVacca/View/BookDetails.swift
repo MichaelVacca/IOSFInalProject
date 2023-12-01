@@ -10,15 +10,9 @@ import SwiftUI
 
 struct BookDetails: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var bookName = ""
-    @State private var author = ""
-    @State private var price = ""
-    @State private var genre = ""
-    @State private var dataAdded = ""
-    @State private var amountInInventory = ""
-    @State private var date = Date()
-    
-    let book: Book
+    @State private var book: Book?
+    var bookID: String
+    let adapter = FirestoreAdapter()
     
     var body: some View {
         ZStack {
@@ -26,46 +20,53 @@ struct BookDetails: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                Text("Update Book")
+                Text(book?.name ?? "Update Book")
                     .font(.largeTitle)
                     .foregroundColor(.white)
-                    .position(x:185 ,y: 100)
-                .padding([.top, .leading, .trailing])
-                Text("Book Name")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(.bottom)
-                
-                VStack {
+                    .padding([.top, .leading, .trailing])
+
+                if let book = book {
                     // Book Name
-                    TextField("Book Name", text: $bookName)
-                        .textFieldStyle(CustomTextFieldStyle())
-                        .padding()
-                    
+                    TextField("Book Name", text: Binding(
+                        get: { book.name },
+                        set: { book.name = $0 }
+                    ))
+                    .textFieldStyle(CustomTextFieldStyle())
+                    .padding()
+
                     // Author
-                    TextField("Author", text: $author)
-                        .textFieldStyle(CustomTextFieldStyle())
-                        .padding()
-                    
+                    TextField("Author", text: Binding(
+                        get: { book.author },
+                        set: { book.author = $0 }
+                    ))
+                    .textFieldStyle(CustomTextFieldStyle())
+                    .padding()
+
                     // Price
-                    TextField("Price", text: $price)
-                        .textFieldStyle(CustomTextFieldStyle())
-                        .padding()
-                    
+                    TextField("Price", value: Binding(
+                        get: { book.price },
+                        set: { book.price = $0 }
+                    ), formatter: NumberFormatter())
+                    .textFieldStyle(CustomTextFieldStyle())
+                    .padding()
+
                     // Genre
-                    TextField("Genre", text: $genre)
-                        .textFieldStyle(CustomTextFieldStyle())
-                        .padding()
+                    TextField("Genre", text: Binding(
+                        get: { book.genre },
+                        set: { book.genre = $0 }
+                    ))
+                    .textFieldStyle(CustomTextFieldStyle())
+                    .padding()
                     
                     Text("Date Added")
                         .font(.callout)
                         .foregroundColor(Color.gray)
                         .padding(.bottom, -5)  // Adjust as needed
 
-                    DatePicker("", selection: $date, displayedComponents: [.date])
-                        .datePickerStyle(DefaultDatePickerStyle())
-                        .padding(.top, -10)
-                        .labelsHidden()
+//                    DatePicker("", selection: $date, displayedComponents: [.date])
+//                        .datePickerStyle(DefaultDatePickerStyle())
+//                        .padding(.top, -10)
+//                        .labelsHidden()
 
                     
                     // Button to Add the Book

@@ -11,7 +11,7 @@ struct BookRow: View {
     var book: Book
     
     var body: some View {
-        NavigationLink(destination: BookDetails(book: book)) {
+        NavigationLink(destination: BookDetails(bookID: book.id)) {
             HStack {
                 Text(book.name)
                     .frame(width: 100, alignment: .leading) // Set a fixed width or use a calculated width
@@ -22,7 +22,7 @@ struct BookRow: View {
                     .lineLimit(1)
                 Spacer()
                 Text(String(format: "%.2f", book.price))
-                    .frame(width: 60, alignment: .trailing) 
+                    .frame(width: 60, alignment: .trailing)
                     .lineLimit(1)
             }
             .padding()
