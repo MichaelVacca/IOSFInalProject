@@ -40,7 +40,7 @@ struct BookStoreView: View {
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                     }
                     
-                    .actionSheet(isPresented: $showSortOptions) { // Action sheet for sort options
+                    .actionSheet(isPresented: $showSortOptions) {
                         ActionSheet(title: Text("Sort By"), buttons: [
                             .default(Text("Name"), action: {
                                 // TODO: Implement sorting by name
@@ -59,7 +59,6 @@ struct BookStoreView: View {
                             .fontWeight(.bold)
                             .frame(width: 100, alignment: .leading)
                         Spacer()
-                        
                         Text("Author")
                             .fontWeight(.bold)
                             .frame(width: 100, alignment: .leading)
@@ -70,9 +69,8 @@ struct BookStoreView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 5)
 
-                    // List of Books
                     ScrollView {
-                        LazyVStack(spacing: 10) {
+                        LazyVStack(spacing: 0) {
                             ForEach(viewModel.books) { book in
                                 BookRow(book: book)
                             }
@@ -83,16 +81,15 @@ struct BookStoreView: View {
                     
                     Spacer()
                     
-                    // Menu bar with Add and Search buttons
                     VStack {
-                        HStack(spacing: 20) { // Adjust the spacing between the buttons as needed
+                        HStack(spacing: 20) {
                             NavigationLink(destination: AddBook()) {
-                                HStack(spacing: 10) { // Adjust the spacing inside the button
+                                HStack(spacing: 10) {
                                     Image(systemName: "plus")
                                         .font(.title2)
 
-                                    Text("Add") // Adds the word "Add" next to the icon
-                                        .fontWeight(.semibold) // Optional, for a bolder text
+                                    Text("Add")
+                                        .fontWeight(.semibold)
                                 }
                                 .foregroundColor(.white)
                                 .padding(18)
@@ -102,16 +99,15 @@ struct BookStoreView: View {
                                 .cornerRadius(10)
                                 .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
                                 .scaleEffect(isTapped ? 0.9 : 1.0)
-                                .animation(.easeIn)
                             }
 
                             NavigationLink(destination: SearchView()) {
-                                HStack(spacing: 10) { // Adjust the spacing inside the button
+                                HStack(spacing: 10) {
                                     Image(systemName: "magnifyingglass")
                                         .font(.title2)
                                     
-                                    Text("Search") // Adds the word "Search" next to the icon
-                                        .fontWeight(.semibold) // Optional, for a bolder text
+                                    Text("Search")
+                                        .fontWeight(.semibold)
                                 }
                                 .foregroundColor(.white)
                                 .padding(18)
@@ -121,10 +117,9 @@ struct BookStoreView: View {
                                 .cornerRadius(10)
                                 .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
                                 .scaleEffect(isTapped ? 0.9 : 1.0)
-                                .animation(.easeIn)
                             }
                         }
-                        .padding(.horizontal, 10) // Adjust the horizontal padding of the HStack
+                        .padding(.horizontal, 10)
                         .padding(.bottom, 10)
                     }
 
@@ -136,7 +131,11 @@ struct BookStoreView: View {
                     .padding()
                 }
                 .background(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
-            }.onAppear {
+            }.onReceive(NotificationCenter.default.publisher(for: .init("BookListShouldRefresh"))) { _ in
+                viewModel.fetchData()
+            }
+
+            .onAppear {
                 viewModel.fetchData()
                 print("Fetching data in Initial View")
                 print("hello")
@@ -159,4 +158,6 @@ struct BookStoreView: View {
         
         }
     }
+
+
 

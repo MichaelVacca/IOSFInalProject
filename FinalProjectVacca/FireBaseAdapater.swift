@@ -112,17 +112,18 @@ class FirestoreAdapter {
         }
     }
 
-    // Update a document
     func updateDocument(collectionName: String,
                         documentId: String,
                         fields: [String: Any],
                         completion: @escaping (Error?) -> Void) {
-
         let docRef = db.collection(collectionName).document(documentId)
         docRef.updateData(fields) { error in
             completion(error)
         }
     }
+
+
+
 
     // Delete a document
     func deleteDocument(collectionName: String,

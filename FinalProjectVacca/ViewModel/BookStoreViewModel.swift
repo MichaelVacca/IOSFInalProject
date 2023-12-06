@@ -15,6 +15,10 @@ class BookStoreViewModel: ObservableObject {
 
     private var db = Firestore.firestore()
     
+    init(){
+        fetchData()
+    }
+    
     func fetchData() {
         db.collection("books").getDocuments { (querySnapshot, error) in
             if let error = error {
