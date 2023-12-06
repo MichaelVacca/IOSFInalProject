@@ -124,6 +124,11 @@ class FirestoreAdapter {
 
 
 
+    func deleteBook(documentId: String, completion: @escaping (Error?) -> Void) {
+        db.collection("books").document(documentId).delete { error in
+            completion(error)
+        }
+    }
 
     // Delete a document
     func deleteDocument(collectionName: String,

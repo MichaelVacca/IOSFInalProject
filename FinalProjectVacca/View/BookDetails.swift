@@ -45,7 +45,7 @@ struct BookDetails: View {
                     .padding()
 
                     Button("Delete Book") {
-                        self.presentationMode.wrappedValue.dismiss()
+                    deleteBook()
                     }
                     .padding()
                     .background(Color.red)
@@ -63,6 +63,19 @@ struct BookDetails: View {
         .navigationBarHidden(true)
     }
 
+    private func deleteBook() {
+        adapter.deleteBook(documentId: book.id) { error in
+            if let error = error {
+                print("Error deleting book: \(error.localizedDescription)")
+                // Handle the error, perhaps showing an alert to the user
+            } else {
+                print("Book deleted successfully")
+                self.presentationMode.wrappedValue.dismiss()
+                // Notify any interested views that they should refresh their data
+                NotificationCenter.default.post(name: NSNotification.Name("BookListShouldRefresh"), object: nil)
+            }
+        }
+    }
     private func updateBook() {
         let updatedFields: [String: Any] = [
             "name": book.name,
