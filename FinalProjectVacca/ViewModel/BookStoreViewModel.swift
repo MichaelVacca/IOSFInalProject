@@ -18,6 +18,17 @@ class BookStoreViewModel: ObservableObject {
     init(){
         fetchData()
     }
+    func sortByName() {
+        books.sort { $0.name < $1.name }
+    }
+
+    func sortByAuthor() {
+        books.sort { $0.author < $1.author }
+    }
+
+    func sortByPrice() {
+        books.sort { $0.price < $1.price }
+    }
     
     func fetchData() {
         db.collection("books").getDocuments { (querySnapshot, error) in
@@ -30,7 +41,7 @@ class BookStoreViewModel: ObservableObject {
                 self.books = querySnapshot.documents.compactMap { document -> Book? in
                     var book = try? document.data(as: Book.self)
                     book?.id = document.documentID
-                    print("ViewModel id:")// Assign the Firestore document ID to the book's id
+                    print("ViewModel id:")
                     return book
                 }
             }

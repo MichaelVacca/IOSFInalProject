@@ -20,9 +20,7 @@ class FirestoreAdapter {
         do {
             var reference: DocumentReference? = nil
 
-            // Check if document ID is provided
             if let documentId = documentId {
-                // Set the document with a specific ID
                 reference = db.collection(collectionName).document(documentId)
 
                 try reference?.setData(from: model) { error in
@@ -30,11 +28,10 @@ class FirestoreAdapter {
                         print(error)
                         completion(.failure(error))
                     } else if let reference = reference {
-                        completion(.success(reference)) // Success
+                        completion(.success(reference))
                     }
                 }
             } else {
-                // Let Firestore auto-generate the document ID
                 reference = try db.collection(collectionName).addDocument(from: model) { error in
 
                     if let error = error {

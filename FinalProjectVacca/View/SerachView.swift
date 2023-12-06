@@ -51,7 +51,7 @@ struct SearchView: View {
                     self.searchResults = books
                 case .failure(let error):
                     print("Error searching books: \(error)")
-                    // Handle the error appropriately
+
                 }
             }
         }

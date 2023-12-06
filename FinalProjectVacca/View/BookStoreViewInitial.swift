@@ -39,21 +39,21 @@ struct BookStoreView: View {
                         .cornerRadius(25)
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                     }
-                    
                     .actionSheet(isPresented: $showSortOptions) {
                         ActionSheet(title: Text("Sort By"), buttons: [
-                            .default(Text("Name"), action: {
-                                // TODO: Implement sorting by name
-                            }),
-                            .default(Text("Author"), action: {
-                                // TODO: Implement sorting by author
-                            }),
-                            .default(Text("Price"), action: {
-                                // TODO: Implement sorting by price
-                            }),
+                            .default(Text("Name")) {
+                                viewModel.sortByName()
+                            },
+                            .default(Text("Author")) {
+                                viewModel.sortByAuthor()
+                            },
+                            .default(Text("Price")) {
+                                viewModel.sortByPrice()
+                            },
                             .cancel()
                         ])
                     }
+
                     HStack {
                         Text("Book Name")
                             .fontWeight(.bold)
