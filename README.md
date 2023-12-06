@@ -1,6 +1,18 @@
 # IOSFInalProject
-<img width="1440" alt="image" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/9a19c228-43ce-4c96-99ae-1e734e793178">
-<img width="1440" alt="image" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/4b579f00-9bc7-4d38-9a02-6641f398f0c0">
-<img width="1440" alt="image" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/a6b718f2-faca-49ca-a8b6-79e1f5027d17">
-<img width="1440" alt="image" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/d2133a2b-f1c1-42c4-9e8d-98fcb25166fb">
+## This what you see when you first open the app
+<img width="341" alt="Screenshot 2023-12-06 at 6 25 25 PM" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/eccea210-9cea-4a36-8aa4-a11d4ac36ff2">
+
+## This is the screen you see when you click the add button
+<img width="341" alt="Screenshot 2023-12-06 at 6 27 43 PM" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/5cfe3a6b-fb92-40ec-9b51-6c54b673e9bd">
+
+## This is what you see when you click on a book row 
+<img width="341" alt="Screenshot 2023-12-06 at 6 28 28 PM" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/d86e87ad-4487-4561-82d9-fedb4624475c">
+
+## This is what you see when you click on the search button on the initial view 
+<img width="341" alt="Screenshot 2023-12-06 at 6 28 28 PM" src="https://github.com/MichaelVacca/IOSFInalProject/assets/83475558/bc0e18fa-93e0-4703-94de-b2b08aae33b7">
+
+
+
+
+
 
