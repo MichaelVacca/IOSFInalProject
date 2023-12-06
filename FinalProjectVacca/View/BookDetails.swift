@@ -66,10 +66,8 @@ struct BookDetails: View {
     private func deleteBook() {
         adapter.deleteBook(documentId: book.id) { error in
             if let error = error {
-                // Handle the error, e.g., show an alert
                 print("Error deleting book: \(error.localizedDescription)")
             } else {
-                // If the deletion is successful, dismiss the view
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: NSNotification.Name("BookListShouldRefresh"), object: nil)
                     self.presentationMode.wrappedValue.dismiss()
@@ -85,12 +83,10 @@ struct BookDetails: View {
             "price": book.price,
         ]
         
-        // Using the Firestore document ID stored in book.id
         adapter.updateDocument(collectionName: "books", documentId: book.id, fields: updatedFields) { error in
             DispatchQueue.main.async {
                 if let error = error {
                     print("Error updating book: \(error)")
-                    // Handle the error, e.g., show an alert
                 } else {
                     print("Book updated successfully")
                     self.presentationMode.wrappedValue.dismiss()
@@ -100,24 +96,3 @@ struct BookDetails: View {
         }
     }
 }
-//    private func updateBook() {
-//        let updatedFields: [String: Any] = [
-//            "name": book.name,
-//            "author": book.author,
-//            "price": book.price,
-//            "genre": book.genre
-//        ]
-//        
-//        adapter.updateDocument(collectionName: "books", documentId: book.id, fields: updatedFields) { error in
-//            DispatchQueue.main.async {
-//                if let error = error {
-//                    print("Error updating book: \(error)")
-//                } else {
-//                    print("Book updated successfully")
-//                    self.presentationMode.wrappedValue.dismiss()
-//                    NotificationCenter.default.post(name: .init("BookListShouldRefresh"), object: nil)
-//                }
-//            }
-//        }
-//    }
-//}

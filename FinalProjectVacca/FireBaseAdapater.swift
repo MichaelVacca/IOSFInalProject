@@ -118,6 +118,21 @@ class FirestoreAdapter {
             completion(error)
         }
     }
+    
+    func searchBooksByName(query: String, completion: @escaping (Result<[Book], Error>) -> Void) {
+        db.collection("books").whereField("name", isEqualTo: query).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            let books = querySnapshot?.documents.compactMap { document -> Book? in
+                var book = try? document.data(as: Book.self)
+                book?.id = document.documentID
+                return book
+            }
+            completion(.success(books ?? []))
+        }
+    }
 
 
 

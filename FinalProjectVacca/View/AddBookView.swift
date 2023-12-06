@@ -61,7 +61,6 @@ struct AddBook: View {
                 Button("Back") {
                     self.presentationMode.wrappedValue.dismiss()
                 }.onDisappear {
-                    // Post a notification when the view disappears
                     NotificationCenter.default.post(name: NSNotification.Name("BookListShouldRefresh"), object: nil)
                 }
                 .navigationBarHidden(true)
@@ -70,27 +69,21 @@ struct AddBook: View {
         }
     }
     private func addBookToFirebase() {
-        // First, validate the input to ensure it's correct
         guard let priceNumber = Double(price), !bookName.isEmpty, !author.isEmpty, !genre.isEmpty else {
             print("Invalid input")
-            // Handle the invalid input with an alert or a message to the user
             return
         }
 
-        // Create a new book instance
         let newBook = Book(id: UUID().uuidString, name: bookName, author: author, price: priceNumber, genre: genre)
         
-        // Add the new book to Firestore using the FirestoreAdapter
         adapter.addDocument(collectionName: "books", model: newBook) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let documentReference):
                     print("Book added successfully with ID: \(documentReference.documentID)")
-                    // Dismiss the AddBook view or show success feedback
                     self.presentationMode.wrappedValue.dismiss()
                 case .failure(let error):
                     print("Error adding book: \(error.localizedDescription)")
-                    // Show error feedback to the user
                 }
             }
         }
