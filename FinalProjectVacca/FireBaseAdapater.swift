@@ -112,10 +112,7 @@ class FirestoreAdapter {
         }
     }
 
-    func updateDocument(collectionName: String,
-                        documentId: String,
-                        fields: [String: Any],
-                        completion: @escaping (Error?) -> Void) {
+    func updateDocument(collectionName: String, documentId: String, fields: [String: Any], completion: @escaping (Error?) -> Void) {
         let docRef = db.collection(collectionName).document(documentId)
         docRef.updateData(fields) { error in
             completion(error)

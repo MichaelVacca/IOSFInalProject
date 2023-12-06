@@ -27,16 +27,14 @@ class BookStoreViewModel: ObservableObject {
             }
 
             if let querySnapshot = querySnapshot {
-                for document in querySnapshot.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-
                 self.books = querySnapshot.documents.compactMap { document -> Book? in
-                    return try? document.data(as: Book.self)
+                    var book = try? document.data(as: Book.self)
+                    book?.id = document.documentID
+                    print("ViewModel id:")// Assign the Firestore document ID to the book's id
+                    return book
                 }
             }
         }
     }
-
 }
 

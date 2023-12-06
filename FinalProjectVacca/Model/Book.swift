@@ -9,12 +9,13 @@ import Foundation
 
 struct Book: Codable, Identifiable {
     var id: String
-    var name: String
+    var name    : String
     var author: String
     var price: Double
     var genre: String
     var dateAdded: Date?
     var amountInInventory: Int?
+    var firestoreId: String?
     
     enum CodingKeys: String, CodingKey {
         case id

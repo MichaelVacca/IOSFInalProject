@@ -3,37 +3,37 @@ import SwiftUI
 
 struct BookDetails: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var book: Book 
+    @State var book: Book
     let adapter = FirestoreAdapter()
-
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
-
+            
             VStack {
                 Text("Update Book")
                     .font(.largeTitle)
                     .foregroundColor(.white)
                     .padding()
-
+                
                 TextField("Book Name", text: $book.name)
                     .textFieldStyle(CustomTextFieldStyle())
                     .padding()
-
+                
                 TextField("Author", text: $book.author)
                     .textFieldStyle(CustomTextFieldStyle())
                     .padding()
-
+                
                 TextField("Price", value: $book.price, formatter: NumberFormatter())
                     .textFieldStyle(CustomTextFieldStyle())
                     .keyboardType(.decimalPad)
                     .padding()
-
+                
                 TextField("Genre", text: $book.genre)
                     .textFieldStyle(CustomTextFieldStyle())
                     .padding()
-
+                
                 HStack {
                     Button("Update Book") {
                         updateBook()
@@ -43,9 +43,9 @@ struct BookDetails: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
                     .padding()
-
+                    
                     Button("Delete Book") {
-                    deleteBook()
+                        deleteBook()
                     }
                     .padding()
                     .background(Color.red)
@@ -53,7 +53,7 @@ struct BookDetails: View {
                     .cornerRadius(8)
                     .padding()
                 }
-
+                
                 Button("Back") {
                     self.presentationMode.wrappedValue.dismiss()
                 }
@@ -62,32 +62,35 @@ struct BookDetails: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
     }
-
+    
     private func deleteBook() {
         adapter.deleteBook(documentId: book.id) { error in
             if let error = error {
+                // Handle the error, e.g., show an alert
                 print("Error deleting book: \(error.localizedDescription)")
-                // Handle the error, perhaps showing an alert to the user
             } else {
-                print("Book deleted successfully")
-                self.presentationMode.wrappedValue.dismiss()
-                // Notify any interested views that they should refresh their data
-                NotificationCenter.default.post(name: NSNotification.Name("BookListShouldRefresh"), object: nil)
+                // If the deletion is successful, dismiss the view
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name("BookListShouldRefresh"), object: nil)
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             }
         }
     }
+    
     private func updateBook() {
         let updatedFields: [String: Any] = [
             "name": book.name,
             "author": book.author,
             "price": book.price,
-            "genre": book.genre
         ]
         
+        // Using the Firestore document ID stored in book.id
         adapter.updateDocument(collectionName: "books", documentId: book.id, fields: updatedFields) { error in
             DispatchQueue.main.async {
                 if let error = error {
                     print("Error updating book: \(error)")
+                    // Handle the error, e.g., show an alert
                 } else {
                     print("Book updated successfully")
                     self.presentationMode.wrappedValue.dismiss()
@@ -97,3 +100,24 @@ struct BookDetails: View {
         }
     }
 }
+//    private func updateBook() {
+//        let updatedFields: [String: Any] = [
+//            "name": book.name,
+//            "author": book.author,
+//            "price": book.price,
+//            "genre": book.genre
+//        ]
+//        
+//        adapter.updateDocument(collectionName: "books", documentId: book.id, fields: updatedFields) { error in
+//            DispatchQueue.main.async {
+//                if let error = error {
+//                    print("Error updating book: \(error)")
+//                } else {
+//                    print("Book updated successfully")
+//                    self.presentationMode.wrappedValue.dismiss()
+//                    NotificationCenter.default.post(name: .init("BookListShouldRefresh"), object: nil)
+//                }
+//            }
+//        }
+//    }
+//}
